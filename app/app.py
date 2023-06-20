@@ -1,10 +1,13 @@
 from flask import Flask,render_template
 from flask_sqlalchemy import SQLAlchemy
+import mysql.connector
 
 
 app = Flask(__name__)
+# password="hkh72280"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:test@localhost/'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:hkh72280@localhost/mydb'
+
 
 db=SQLAlchemy(app)
 
@@ -16,7 +19,7 @@ class Country_master(db.Model):
     iso3=db.Column(db.String(10),nullable=False)
     iso=db.Column(db.String(10),nullable=False)
     
-class Client_master(db.Model):
+class Client_master(db.Model): 
     client_id=db.Column(db.Integer,primary_key=True)
     client_name=db.Column(db.String(255),nullable=False)
     country_id=db.Column(db.Integer,nullable=False)
@@ -32,7 +35,7 @@ class Brand_master(db.Model):
 class Retailer_master(db.Model):
     retailer_id=db.Column(db.Integer,primary_key=True)
     retailer_name=db.Column(db.String(255),nullable=False)
-    retailer_country_id=db.Column(db.Integer,nullable=False)
+    retailer_country_id=db.Column(db.Integer,nullable=False)          
     retailer_url=db.Column(db.String(255),nullable=False)
 
 class Client_entity_master(db.Model):
@@ -52,4 +55,4 @@ def hello_world():
     return render_template('index.html')
 
 
-app.run(debug=True,port=5003)
+app.run(debug=True,port=5002)
